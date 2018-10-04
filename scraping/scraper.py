@@ -14,11 +14,12 @@ class Scraper():
 
         for club in clubs:
             club_id = int(club["Id"])
+            club.pop("@search.score", None)
 
             for category_id, category_name in zip(club["CategoryIds"], club["CategoryNames"]):
                 if category_id not in categories:
                     categories[category_id] = {
-                        "category_id": category_id,
+                        "category_id": int(category_id),
                         "category_name": category_name,
                         "clubs": [ club_id ]
                     }
