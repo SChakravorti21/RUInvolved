@@ -9,6 +9,12 @@ class Scraper():
         r = r.json()
         return r
 
+    def clean_clubs(self, clubs):
+        for club in clubs:
+            club["Id"] = int(club["Id"])
+
+        return clubs
+
     def create_organization_sets(self, clubs):
         categories = dict()
 
