@@ -8,6 +8,44 @@ class MongoDBClient():
         self.clubs = self.db["clubs"]
         self.categories = self.db["categories"]
 
+    def find_clubs_from_categories(self, categories):
+        return self.categories.aggregate([
+            { 
+                '$match': { 
+                    'category_id': { '$in': categories } 
+                } 
+            }, 
+            { 
+                '$unwind': '$clubs' 
+            }, 
+            { 
+                '$group': {
+                    '_id': False,
+                    'clbs': { '$addToSet': '$clubs' } 
+                }
+            },
+            {
+                '$unwind': '$clbs'
+            },
+            {
+                '$lookup': {
+                    'from': 'clubs',
+                    'localField': 'clbs',
+                    'foreignField': 'Id',
+                    'as': 'found'
+                }
+            },
+            { 
+                '$unwind': '$found'
+            },
+            {
+                '$project': {
+                    '_id': False,
+                    'clbs': False
+                }
+            }
+        ])
+
     def insert_clubs(self, clubs):
         self.clubs.insert_many(clubs)
 
