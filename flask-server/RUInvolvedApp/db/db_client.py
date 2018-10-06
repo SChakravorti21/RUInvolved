@@ -12,7 +12,7 @@ class MongoDBClient():
         clubs = self.categories.aggregate([
             { 
                 '$match': { 
-                    'category_id': { '$in': categories } 
+                    'category_name': { '$in': categories } 
                 } 
             }, 
             { 
