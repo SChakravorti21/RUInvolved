@@ -12,6 +12,7 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.firebase.ui.database.FirebaseListAdapter;
 import com.firebase.ui.database.FirebaseListOptions;
@@ -28,9 +29,14 @@ import java.util.Iterator;
 
 public class MainActivity extends AppCompatActivity {
 
-    private FirebaseListAdapter<ChatMessage> adapter;
+    static final int clubId = 1;
+
+    private MessagesAdapter adapter;
     RelativeLayout activity_main;
     private DatabaseReference reference;
+
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,8 +52,6 @@ public class MainActivity extends AppCompatActivity {
 
         reference = FirebaseDatabase.getInstance().getReference();
 
-        reference.push().child("test").push().setValue("hihi");
-
         sendbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -55,9 +59,8 @@ public class MainActivity extends AppCompatActivity {
                 EditText input = findViewById(R.id.input);
                 String msg = input.getText().toString();
 
-                Log.d("doritos", "message :" + msg);
-                reference.push()  //automatically generates new key with push
-                        .setValue(new ChatMessage(msg, "user1", 10)
+                reference.child(clubId + "").push()
+                        .setValue(new ChatMessage(msg, "user1", 1)
                         );
 
                 input.setText("");
@@ -74,18 +77,12 @@ public class MainActivity extends AppCompatActivity {
 
     private void displayChatMessages() {
 
-        final long clubId = 1;
-
-
-        final ListView messageList = findViewById(R.id.list_of_messages);
-
-
-        Query query = reference;
+        final ListView messagesListView = findViewById(R.id.list_of_messages);
 
 
         final ArrayList<ChatMessage> messagesForClub = new ArrayList<>();
 
-        reference.addListenerForSingleValueEvent(new ValueEventListener() {
+        reference.child(clubId + "").addListenerForSingleValueEvent(new ValueEventListener() {
 
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -96,9 +93,13 @@ public class MainActivity extends AppCompatActivity {
                     DataSnapshot child = dataSnapshotIterator.next();
                     ChatMessage msg = child.getValue(ChatMessage.class);
 
-                    if(msg.getClubId() == clubId)
-                        messagesForClub.add(msg);
+                    Log.d("doritos", "added a msg");
+                    messagesForClub.add(msg);
                 }
+
+
+                adapter = new MessagesAdapter(messagesForClub, MainActivity.this);
+                messagesListView.setAdapter(adapter);
 
             }
 
@@ -108,47 +109,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        int x = 2;
-
-
-        /*
-        FirebaseListOptions<ChatMessage> options =
-                new FirebaseListOptions.Builder<ChatMessage>()
-                        .setQuery(query, ChatMessage.class)
-                        .setLayout(R.layout.message)
-                        .build();
-
-        adapter = new FirebaseListAdapter<ChatMessage>(options) {
-            @Override
-            protected void populateView(View v, ChatMessage model, int position) {
-                TextView messageText = v.findViewById(R.id.message_text);
-                TextView messageUser = v.findViewById(R.id.message_user);
-                TextView messageTime = v.findViewById(R.id.message_time);
-
-                messageText.setText(model.getMessageText());
-                messageUser.setText(model.getMessageUser());
-
-                messageTime.setText(DateFormat.format("dd-MM-yyyy (HH:mm:ss)",
-                        model.getMessageTime()));
-            }
-        };
-
-        messageList.setAdapter(adapter);
-
-        */
-
-
-        //adapter.startListening();
-
     }
-
-    @Override
-    protected void onStop() {
-        if (adapter != null)
-            adapter.stopListening();
-        super.onStop();
-    }
-
 
 
     void addTestData() {
