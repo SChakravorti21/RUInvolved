@@ -26,7 +26,11 @@ import io.reactivex.schedulers.Schedulers;
 
 public class StudentActivity extends AppCompatActivity {
 
+<<<<<<< HEAD
     protected void onCreate(Bundle savedInstanceState) {
+=======
+    protected void onCreate( Bundle savedInstanceState) {
+>>>>>>> db7f7465869dffee0ff2aac959513a342b7bd73c
         super.onCreate(savedInstanceState);
         this.setContentView(R.layout.activity_student);
         setFragment(new ClubSearchFragment());
