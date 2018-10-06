@@ -3,9 +3,10 @@ package com.example.shoumyo.ruinvolved.models;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class Club {
+public class Club implements Serializable {
 
     @SerializedName("Id")
     public int id;
@@ -31,7 +32,7 @@ public class Club {
     public String status;
 
     @SerializedName("CategoryNames")
-    List<String> categoryNames;
+    public List<String> categoryNames;
 
     public String getProfilePicture() {
         return "https://se-infra-imageserver2.azureedge.net/clink/images/" + profilePicture;

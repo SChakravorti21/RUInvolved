@@ -5,10 +5,12 @@
 
     <dimen name="small_margin">8dp</dimen>
     <dimen name="medium_margin">16dp</dimen>
-    <dimen name="large_margin">32dp</dimen>
+    <dimen name="large_margin">24dp</dimen>
 
     <dimen name="club_card_height">104dp</dimen>
     <dimen name="club_small_image_width">72dp</dimen>
     <dimen name="club_small_image_height">72dp</dimen>
 
+    <dimen name="map_small_height">192dp</dimen>
+    <dimen name="club_header_height">48dp</dimen>
 </resources>
