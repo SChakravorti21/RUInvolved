@@ -5,13 +5,17 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.shoumyo.ruinvolved.R;
 import com.example.shoumyo.ruinvolved.data_sources.ClubsDataSource;
+import com.example.shoumyo.ruinvolved.models.Club;
 import com.example.shoumyo.ruinvolved.ui.MultiSelectionSpinner;
+import com.example.shoumyo.ruinvolved.ui.adapters.ClubListAdapter;
 
 import java.util.List;
 
@@ -21,6 +25,7 @@ import io.reactivex.schedulers.Schedulers;
 public class ClubSearchFragment extends Fragment implements MultiSelectionSpinner.OnMultipleItemsSelectedListener {
 
     private ClubsDataSource clubDataSource;
+    private ClubListAdapter clubListAdapter;
     private MultiSelectionSpinner selectionSpinner;
 
     @Override
@@ -33,8 +38,14 @@ public class ClubSearchFragment extends Fragment implements MultiSelectionSpinne
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_club_search, container, false);
-        this.initializeMultiSelect(root);
 
+        RecyclerView clubListRecyclerView = root.findViewById(R.id.club_list_recyclerview);
+        clubListRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+
+        this.clubListAdapter = new ClubListAdapter(null);
+        clubListRecyclerView.setAdapter(clubListAdapter);
+
+        this.initializeMultiSelect(root);
         return root;
     }
 
@@ -55,18 +66,22 @@ public class ClubSearchFragment extends Fragment implements MultiSelectionSpinne
                 );
     }
 
-    public void selectedIndices(@org.jetbrains.annotations.Nullable List<Integer> indices) {
-
-    }
-
     @SuppressLint("CheckResult")
-    public void selectedStrings(@org.jetbrains.annotations.Nullable List<String> categories) {
+    public void selectedStrings(@Nullable List<String> categories) {
         clubDataSource.getClubsForCategories(categories)
                 .subscribeOn(Schedulers.computation())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
-                        clubs -> clubs.get(0),
+                        this::setClubsFromDataSource,
                         error -> error.printStackTrace()
                 );
     }
+
+    public void setClubsFromDataSource(List<Club> clubs) {
+        clubListAdapter.setDataSource(clubs);
+        clubListAdapter.notifyDataSetChanged();
+    }
+
+    public void selectedIndices(@org.jetbrains.annotations.Nullable List<Integer> indices) {  }
+
 }
