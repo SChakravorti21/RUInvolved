@@ -28,6 +28,10 @@ public class ClubsDataSource {
                 .toList();
     }
 
+    public Single<Club> getClubForId(String clubId) {
+        return service.getClubForId(clubId);
+    }
+
     public Single<List<Club>> getClubsForCategories(List<String> categories) {
         StringBuilder sb = new StringBuilder("[");
         String lastCategory = categories.get(categories.size() - 1);

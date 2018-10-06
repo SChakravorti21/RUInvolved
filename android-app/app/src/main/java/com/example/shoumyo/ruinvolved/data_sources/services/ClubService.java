@@ -11,6 +11,9 @@ import retrofit2.http.Query;
 
 public interface ClubService {
 
+    @GET("/club/")
+    Single<Club> getClubForId(@Query("id") String clubId);
+
     @GET("/clubs/")
     Single<List<Club>> getClubsForCategories(@Query("categories") String categories);
 
