@@ -23,7 +23,7 @@
             android:layout_margin="@dimen/large_margin"
             android:layout_width="match_parent"
             android:layout_height="@dimen/club_header_height"
-            ho>
+            >
 
             <android.support.v7.widget.CardView
                 android:layout_width="@dimen/club_header_height"
