@@ -4,14 +4,18 @@ import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.FrameLayout;
 
 import com.example.shoumyo.ruinvolved.R;
 import com.example.shoumyo.ruinvolved.data_sources.ClubsDataSource;
 import com.example.shoumyo.ruinvolved.ui.MultiSelectionSpinner;
+import com.example.shoumyo.ruinvolved.ui.fragments.ClubSearchFragment;
 
 import org.jetbrains.annotations.Nullable;
 
@@ -22,20 +26,19 @@ import io.reactivex.Scheduler;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 
-public class StudentActivity extends AppCompatActivity implements MultiSelectionSpinner.OnMultipleItemsSelectedListener {
-    @Nullable
-    private ClubsDataSource clubDataSource;
-    private MultiSelectionSpinner selectionSpinner;
+public class StudentActivity extends AppCompatActivity {
 
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         this.setContentView(R.layout.activity_student);
+        setFragment(new ClubSearchFragment());
 
         BottomNavigationView bottomNavigationView = findViewById(R.id.navigation);
         bottomNavigationView.setOnNavigationItemSelectedListener(
                 menuItem -> {
                     switch (menuItem.getItemId()) {
                         case R.id.navigation_home:
+                            setFragment(new ClubSearchFragment());
                             return true;
                         case R.id.navigation_dashboard:
                             return true;
@@ -46,40 +49,12 @@ public class StudentActivity extends AppCompatActivity implements MultiSelection
                     return false;
                 }
         );
-
-        this.clubDataSource = new ClubsDataSource(this);
-        this.initializeMultiSelect();
     }
 
-    @SuppressLint("CheckResult")
-    private void initializeMultiSelect() {
-        selectionSpinner = findViewById(R.id.categories);
-        selectionSpinner.setListener(this);
-
-        clubDataSource.getAllCategories()
-                .subscribeOn(Schedulers.newThread())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(
-                        categories -> {
-                            String[] category_names = new String[categories.size()];
-                            selectionSpinner.setItems( categories.toArray(category_names) );
-                        },
-                        error -> error.printStackTrace()
-                );
-    }
-
-    public void selectedIndices(@Nullable List<Integer> indices) {
-
-    }
-
-    @SuppressLint("CheckResult")
-    public void selectedStrings(@Nullable List<String> categories) {
-        clubDataSource.getClubsForCategories(categories)
-                .subscribeOn(Schedulers.computation())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(
-                        clubs -> clubs.get(0),
-                        error -> error.printStackTrace()
-                );
+    private void setFragment(Fragment fragment) {
+        getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.fragment_container, fragment)
+                .commit();
     }
 }
