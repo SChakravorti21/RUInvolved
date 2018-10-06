@@ -1,4 +1,5 @@
 import requests
+import uuid
 
 class Scraper():
     BASE_URL = "https://rutgers.campuslabs.com/engage/api/discovery/search/organizations"
@@ -13,6 +14,7 @@ class Scraper():
         for club in clubs:
             club.pop("@search.score", None)
             club["Id"] = int(club["Id"])
+            club["generated_id"] = uuid.uuid4().hex[:6]
 
         return clubs
 

@@ -74,7 +74,7 @@ public class AdminLandingFragment extends Fragment {
             return;
 
         SharedPrefsUtils.setUsername(context, name);
-        Intent activityIntent = new Intent(context, StudentActivity.class);
+        Intent activityIntent = new Intent(context, ClubDetailsActivity.class);
         activityIntent.putExtra(ClubDetailsActivity.CLUB_DETAILS_TAG, club);
         context.startActivity(activityIntent);
     }
