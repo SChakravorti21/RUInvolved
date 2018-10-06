@@ -4,8 +4,16 @@ import android.os.Bundle
 import android.support.design.widget.BottomNavigationView
 import android.support.v7.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_student.*
+import com.example.shoumyo.ruinvolved.ui.MultiSelectionSpinner
 
-class StudentActivity : AppCompatActivity() {
+
+
+class StudentActivity : AppCompatActivity(), MultiSelectionSpinner.OnMultipleItemsSelectedListener {
+    override fun selectedIndices(indices: MutableList<Int>?) {
+    }
+
+    override fun selectedStrings(strings: MutableList<String>?) {
+    }
 
     private val mOnNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
         when (item.itemId) {
@@ -30,5 +38,11 @@ class StudentActivity : AppCompatActivity() {
         setContentView(R.layout.activity_student)
 
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
+
+        val array = arrayOf("one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten")
+        val multiSelectionSpinner = findViewById<MultiSelectionSpinner>(R.id.categories)
+        multiSelectionSpinner.setItems(array)
+        multiSelectionSpinner.setSelection(intArrayOf(2, 6))
+        multiSelectionSpinner.setListener(this)
     }
 }

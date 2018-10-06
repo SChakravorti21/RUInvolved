@@ -18,6 +18,13 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <com.example.shoumyo.ruinvolved.ui.MultiSelectionSpinner
+        android:id="@+id/categories"
+        android:layout_width="match_parent"
+        android:layout_height="50dp">
+
+    </com.example.shoumyo.ruinvolved.ui.MultiSelectionSpinner>
+
     <android.support.design.widget.BottomNavigationView
         android:id="@+id/navigation"
         android:layout_width="0dp"
