@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "243314059867",
+    "firebase_url": "https://ruinvolvedchatroom.firebaseio.com",
+    "project_id": "ruinvolvedchatroom",
+    "storage_bucket": "ruinvolvedchatroom.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:243314059867:android:a0e325dc0d3ccb42",
+        "android_client_info": {
+          "package_name": "com.example.shoumyo.ruinvolved"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "243314059867-2fk98dlg3ij8kjdgnnasip38j2trmqp8.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.shoumyo.ruinvolved",
+            "certificate_hash": "538a6bd79f382d20b08a9abe507b5ff3c65faac9"
+          }
+        },
+        {
+          "client_id": "243314059867-d9di4tffr4s5mq0e98nmh3vsv13i28ru.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBhwxQcY6ttJmuEG6iPvIm9qimQI7w-c0k"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "243314059867-d9di4tffr4s5mq0e98nmh3vsv13i28ru.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
