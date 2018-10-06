@@ -9,10 +9,10 @@ class MongoDBClient():
         self.categories = self.db["categories"]
 
     def find_clubs_from_categories(self, categories):
-        return self.categories.aggregate([
+        clubs = self.categories.aggregate([
             { 
                 '$match': { 
-                    'category_id': { '$in': categories } 
+                    'category_name': { '$in': categories } 
                 } 
             }, 
             { 
@@ -20,7 +20,7 @@ class MongoDBClient():
             }, 
             { 
                 '$group': {
-                    '_id': False,
+                    '_id': 0,
                     'clbs': { '$addToSet': '$clubs' } 
                 }
             },
@@ -40,11 +40,21 @@ class MongoDBClient():
             },
             {
                 '$project': {
-                    '_id': False,
+                    '_id': 0,
                     'clbs': False
                 }
             }
         ])
+
+        # `clubs` is a cursor, so we need to iterate through it
+        # anyways to turn them into a list. Also remove the _id
+        # since it is not serializable
+        cleaned_clubs = []
+        for club in clubs:
+            club["found"].pop('_id', None)
+            cleaned_clubs.append(club["found"])
+
+        return cleaned_clubs
 
     def insert_clubs(self, clubs):
         self.clubs.insert_many(clubs)
