@@ -2,14 +2,18 @@ package com.example.shoumyo.ruinvolved;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.media.Image;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Html;
+import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.shoumyo.ruinvolved.models.Club;
+import com.example.shoumyo.ruinvolved.utils.SharedPrefsUtils;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -29,6 +33,8 @@ public class ClubDetailsActivity extends AppCompatActivity implements OnMapReady
     public static final String CLUB_DETAILS_TAG = "club_details";
 
     private Club club;
+    private boolean favorited;
+    ImageButton favoriteButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,7 +45,27 @@ public class ClubDetailsActivity extends AppCompatActivity implements OnMapReady
         SupportMapFragment mapFragment =
                 (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.club_map);
         mapFragment.getMapAsync(this);
+
+        favoriteButton = findViewById(R.id.club_favorite_action);
+        favoriteButton.setOnClickListener(button -> {
+            favorited = !favorited;
+            updateFavoriteStar();
+
+            if(favorited)
+                SharedPrefsUtils.addFavoriteClub(this, club.id);
+            else
+                SharedPrefsUtils.removeFavoriteClub(this, club.id);
+        });
+
         initializeClubDetails();
+    }
+
+    private void updateFavoriteStar() {
+        favoriteButton.setImageResource(
+                favorited
+                ? R.drawable.ic_star_24dp
+                : R.drawable.ic_star_border_24dp
+        );
     }
 
     private void initializeClubDetails() {
@@ -48,6 +74,9 @@ public class ClubDetailsActivity extends AppCompatActivity implements OnMapReady
         setHtmlText(R.id.club_summary, club.summary);
         setHtmlText(R.id.club_description, club.description);
         setCategories(club.categoryNames);
+
+        favorited = SharedPrefsUtils.isFavorited(this, club.id);
+        updateFavoriteStar();
     }
 
     private void setHtmlText(int viewId, String htmlText) {

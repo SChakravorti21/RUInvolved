@@ -34,6 +34,7 @@ public class StudentLandingFragment extends Fragment {
                 return;
 
             SharedPrefsUtils.setUsername(context, name);
+            SharedPrefsUtils.setIsAdmin(context, false);
 
             Intent activityIntent = new Intent(context, StudentActivity.class);
             context.startActivity(activityIntent);

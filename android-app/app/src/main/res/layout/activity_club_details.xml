@@ -45,9 +45,20 @@
 
                 <TextView
                     android:id="@id/club_name"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginStart="@dimen/medium_margin"
+                    android:layout_gravity="center_vertical"/>
+
+                <ImageButton
+                    android:id="@+id/club_favorite_action"
                     android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_marginStart="@dimen/medium_margin" />
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/small_margin"
+                    android:layout_gravity="center_vertical"
+                    android:src="@drawable/ic_star_border_24dp"
+                    android:background="?attr/selectableItemBackground" />
 
             </LinearLayout>
 

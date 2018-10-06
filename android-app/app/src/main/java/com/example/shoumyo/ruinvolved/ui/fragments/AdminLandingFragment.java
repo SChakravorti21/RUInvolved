@@ -73,7 +73,9 @@ public class AdminLandingFragment extends Fragment {
         if(!validateUsername(name))
             return;
 
-        SharedPrefsUtils.setUsername(context, name);
+        SharedPrefsUtils.setUsername(context, name + " (Admin)");
+        SharedPrefsUtils.setIsAdmin(context, true);
+
         Intent activityIntent = new Intent(context, ClubDetailsActivity.class);
         activityIntent.putExtra(ClubDetailsActivity.CLUB_DETAILS_TAG, club);
         context.startActivity(activityIntent);
