@@ -1,0 +1,12 @@
+package com.example.shoumyo.ruinvolved;
+
+import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
+
+public class ClubDetailsActivity extends AppCompatActivity {
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+    }
+}
