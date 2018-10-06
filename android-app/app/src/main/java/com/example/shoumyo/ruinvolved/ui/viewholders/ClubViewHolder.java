@@ -1,5 +1,7 @@
 package com.example.shoumyo.ruinvolved.ui.viewholders;
 
+import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
@@ -10,7 +12,9 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.shoumyo.ruinvolved.ClubDetailsActivity;
 import com.example.shoumyo.ruinvolved.R;
+import com.example.shoumyo.ruinvolved.models.Club;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -19,6 +23,7 @@ import java.net.URL;
 
 public class ClubViewHolder extends RecyclerView.ViewHolder {
 
+    private Club club;
     private ImageView profilePicture;
     private TextView clubName;
     private TextView clubDescription;
@@ -28,6 +33,20 @@ public class ClubViewHolder extends RecyclerView.ViewHolder {
         this.profilePicture = itemView.findViewById(R.id.club_logo);
         this.clubName = itemView.findViewById(R.id.club_name);
         this.clubDescription = itemView.findViewById(R.id.club_description);
+
+        itemView.setOnClickListener(v -> {
+            Context context = itemView.getContext();
+            Intent intent = new Intent(context, ClubDetailsActivity.class);
+            intent.putExtra(ClubDetailsActivity.CLUB_DETAILS_TAG, club);
+            context.startActivity(intent);
+        });
+    }
+
+    public void setClub(Club club) {
+        this.club = club;
+        this.setClubName(club.name);
+        this.setClubDescription(club.description);
+        this.setProfilePicture(club.getProfilePicture());
     }
 
     public void setProfilePicture(String imageUrl) {
