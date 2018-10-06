@@ -3,4 +3,7 @@
     <string name="title_home">Home</string>
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
+    <string name="club_search_query">Search for a club...</string>
+    <string name="club_sample_description">The purpose of THE CORE is to provide students with access to the airwaves and to train them in the operation of a radio station and its equipment. THE CORE provides musical and other forms of entertainment and information to Livingston Campus students. This organization shall abide by all applicable laws of the State of New Jersey and the United States. This organization shall abide by all applicable rules and regulations of the University and under the privileges as granted by the Division of Student Affairs and by the rules and regulations of the Board of Governors.</string>
+    <string name="club_sample_name">90.3 The Core</string>
 </resources>

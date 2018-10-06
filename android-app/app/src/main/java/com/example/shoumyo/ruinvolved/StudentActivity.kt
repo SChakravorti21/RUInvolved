@@ -18,15 +18,15 @@ class StudentActivity : AppCompatActivity(), MultiSelectionSpinner.OnMultipleIte
     private val mOnNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
         when (item.itemId) {
             R.id.navigation_home -> {
-                message.setText(R.string.title_home)
+//                message.setText(R.string.title_home)
                 return@OnNavigationItemSelectedListener true
             }
             R.id.navigation_dashboard -> {
-                message.setText(R.string.title_dashboard)
+//                message.setText(R.string.title_dashboard)
                 return@OnNavigationItemSelectedListener true
             }
             R.id.navigation_notifications -> {
-                message.setText(R.string.title_notifications)
+//                message.setText(R.string.title_notifications)
                 return@OnNavigationItemSelectedListener true
             }
         }
@@ -40,9 +40,8 @@ class StudentActivity : AppCompatActivity(), MultiSelectionSpinner.OnMultipleIte
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
 
         val array = arrayOf("one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten")
-        val multiSelectionSpinner = findViewById<MultiSelectionSpinner>(R.id.categories)
-        multiSelectionSpinner.setItems(array)
-        multiSelectionSpinner.setSelection(intArrayOf(2, 6))
-        multiSelectionSpinner.setListener(this)
+        categories.setItems(array)
+        categories.setSelection(intArrayOf(2, 6))
+        categories.setListener(this)
     }
 }
