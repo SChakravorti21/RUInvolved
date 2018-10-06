@@ -11,6 +11,7 @@ class Scraper():
 
     def clean_clubs(self, clubs):
         for club in clubs:
+            club.pop("@search.score", None)
             club["Id"] = int(club["Id"])
 
         return clubs
@@ -20,7 +21,6 @@ class Scraper():
 
         for club in clubs:
             club_id = int(club["Id"])
-            club.pop("@search.score", None)
 
             for category_id, category_name in zip(club["CategoryIds"], club["CategoryNames"]):
                 if category_id not in categories:

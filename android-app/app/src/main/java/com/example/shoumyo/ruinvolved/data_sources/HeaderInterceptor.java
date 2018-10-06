@@ -26,9 +26,9 @@ public class HeaderInterceptor implements Interceptor {
 
         Request original = chain.request();
 
-        String authToken = SharedPrefsUtils.getAuthToken(this.context.get());
+        // String authToken = SharedPrefsUtils.getAuthToken(this.context.get());
         Request request = original.newBuilder()
-                .addHeader("Authorization", authToken)
+                // .addHeader("Authorization", authToken)
                 .method(original.method(), original.body())
                 .build();
 

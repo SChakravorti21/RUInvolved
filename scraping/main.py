@@ -16,5 +16,5 @@ dbclient = MongoDBClient()
 
 from pprint import pprint
 
-for club in dbclient.find_clubs_from_categories([ 6475 ]):
+for club in dbclient.find_clubs_from_categories([ 6475 , 2384]):
     pprint(club)
