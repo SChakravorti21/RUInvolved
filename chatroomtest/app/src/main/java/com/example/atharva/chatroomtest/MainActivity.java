@@ -40,6 +40,9 @@ public class MainActivity extends AppCompatActivity {
                 EditText input = findViewById(R.id.input);
                 String msg = input.getText().toString();
 
+                FirebaseDatabase.getInstance().getReference().child("100").setValue(new ChatMessage(msg, "test"));
+
+
                 Log.d("doritos", "message :" + msg);
                 FirebaseDatabase.getInstance()
                         .getReference()
