@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 
@@ -17,6 +18,7 @@ import org.jetbrains.annotations.Nullable;
 import java.util.HashMap;
 import java.util.List;
 
+import io.reactivex.Scheduler;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 
@@ -66,9 +68,18 @@ public class StudentActivity extends AppCompatActivity implements MultiSelection
                 );
     }
 
-    public void selectedIndices(@Nullable List indices) {
+    public void selectedIndices(@Nullable List<Integer> indices) {
+
     }
 
-    public void selectedStrings(@Nullable List strings) {
+    @SuppressLint("CheckResult")
+    public void selectedStrings(@Nullable List<String> categories) {
+        clubDataSource.getClubsForCategories(categories)
+                .subscribeOn(Schedulers.computation())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+                        clubs -> clubs.get(0),
+                        error -> error.printStackTrace()
+                );
     }
 }
