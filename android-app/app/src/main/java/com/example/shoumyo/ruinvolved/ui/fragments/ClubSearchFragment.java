@@ -82,6 +82,6 @@ public class ClubSearchFragment extends Fragment implements MultiSelectionSpinne
         clubListAdapter.notifyDataSetChanged();
     }
 
-    public void selectedIndices(@org.jetbrains.annotations.Nullable List<Integer> indices) {  }
+    public void selectedIndices(List<Integer> indices) {  }
 
 }

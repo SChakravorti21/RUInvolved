@@ -17,8 +17,6 @@ import com.example.shoumyo.ruinvolved.data_sources.ClubsDataSource;
 import com.example.shoumyo.ruinvolved.ui.MultiSelectionSpinner;
 import com.example.shoumyo.ruinvolved.ui.fragments.ClubSearchFragment;
 
-import org.jetbrains.annotations.Nullable;
-
 import java.util.HashMap;
 import java.util.List;
 
@@ -28,7 +26,7 @@ import io.reactivex.schedulers.Schedulers;
 
 public class StudentActivity extends AppCompatActivity {
 
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         this.setContentView(R.layout.activity_student);
         setFragment(new ClubSearchFragment());
