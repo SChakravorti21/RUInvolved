@@ -3,6 +3,17 @@ from flask import Blueprint, request, Response, json
 
 mod = Blueprint('clubs', __name__)
 
+@mod.route('/club/', methods=['GET'])
+def get_club_with_id():
+    club_id = request.args.get('id')
+    club = dbclient.clubs.find_one({ 'generated_id': club_id })
+
+    if not club:
+        return Response(status=401)
+
+    club.pop('_id', None)
+    return json.dumps(club)
+
 @mod.route('/clubs/', methods=['GET'])
 def get_clubs_for_categories():
     categories = request.args.get('categories')
