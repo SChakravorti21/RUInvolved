@@ -43,16 +43,16 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
         activity_main = findViewById(R.id.activity_main);
-
-        Button sendbtn = findViewById(R.id.sendbtn);
 
         FirebaseApp.initializeApp(this);
 
         reference = FirebaseDatabase.getInstance().getReference();
 
-        sendbtn.setOnClickListener(new View.OnClickListener() {
+//        addTestData();
+
+
+        findViewById(R.id.sendbtn).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
@@ -108,26 +108,6 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
-
-    }
-
-
-    void addTestData() {
-
-        ChatMessage msg1 = new ChatMessage("msg1", "user1", 1);
-        reference.push().setValue(msg1);
-
-        ChatMessage msg2 = new ChatMessage("msg2", "user1", 1);
-        reference.push().setValue(msg2);
-
-        ChatMessage msg3 = new ChatMessage("msg3", "user1", 2);
-        reference.push().setValue(msg3);
-
-        ChatMessage msg4 = new ChatMessage("msg4", "user1", 2);
-        reference.push().setValue(msg4);
-
-        ChatMessage msg5 = new ChatMessage("msg5", "user1", 3);
-        reference.push().setValue(msg5);
 
     }
 
