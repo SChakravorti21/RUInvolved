@@ -18,6 +18,7 @@ public class ChatMessage {
         messageTime = new Date().getTime();
     }
 
+    // needed for firebase library to convert the firebase object into a chat message
     public ChatMessage(){
 
     }

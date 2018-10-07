@@ -75,6 +75,8 @@ public class ClubDetailsActivity extends AppCompatActivity implements OnMapReady
                 String currentUser = SharedPrefsUtils.getUsername(ClubDetailsActivity.this);
                 intent.putExtra(ChatroomActivity.USERNAME_TAG, currentUser);
 
+                intent.putExtra(ChatroomActivity.CLUB_NAME_TAG, club.name);
+
                 startActivity(intent);
 
             }

@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ListView;
 
 import com.example.shoumyo.ruinvolved.utils.MessagesAdapter;
@@ -26,6 +27,8 @@ public class ChatroomActivity extends AppCompatActivity {
 
     public static final String CLUB_ID_TAG = "club_id_tag";
     public static final String USERNAME_TAG = "username_tag";
+    public static final String CLUB_NAME_TAG = "club_name_tag";
+
 
     private MessagesAdapter messagesAdapter;
     private DatabaseReference reference;
@@ -39,7 +42,9 @@ public class ChatroomActivity extends AppCompatActivity {
         Intent intent = getIntent();
         String username = intent.getStringExtra(USERNAME_TAG);
         int clubId = intent.getIntExtra(CLUB_ID_TAG, -1);
+        String clubName = intent.getStringExtra(CLUB_NAME_TAG);
 
+        getSupportActionBar().setTitle(clubName);
 
 
         // initialize the firebase app
@@ -48,7 +53,7 @@ public class ChatroomActivity extends AppCompatActivity {
         // store a ref to the database
         reference = FirebaseDatabase.getInstance().getReference();
 
-        Button sendBtn = findViewById(R.id.sendbtn);
+        ImageButton sendBtn = findViewById(R.id.sendbtn);
         sendBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
