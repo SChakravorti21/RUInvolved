@@ -75,6 +75,8 @@ public class ChatroomActivity extends AppCompatActivity {
             }
         });
 
+
+        // #logical
         reference.child(clubId + "").addChildEventListener(new ChildEventListener() {
 
             @Override
@@ -83,24 +85,16 @@ public class ChatroomActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-
-            }
+            public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {}
 
             @Override
-            public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
-
-            }
+            public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {}
 
             @Override
-            public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-
-            }
+            public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {}
 
             @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
+            public void onCancelled(@NonNull DatabaseError databaseError) {}
         });
 
         displayChatMessages(clubId);
@@ -135,9 +129,18 @@ public class ChatroomActivity extends AppCompatActivity {
                     messages.add(msg);
                 }
 
+                // create the adapter with messages from this club, then set it to listview
                 messagesAdapter = new MessagesAdapter(messages, ChatroomActivity.this);
                 listView.setAdapter(messagesAdapter);
 
+                // scroll to bottom
+                listView.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        // Select the last row so it will scroll into view...
+                        listView.setSelection(messagesAdapter.getCount() - 1);
+                    }
+                });
             }
 
             @Override

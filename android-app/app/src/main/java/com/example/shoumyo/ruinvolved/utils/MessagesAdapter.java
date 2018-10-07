@@ -1,6 +1,7 @@
 package com.example.shoumyo.ruinvolved.utils;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.text.format.DateFormat;
 import android.view.LayoutInflater;
@@ -57,7 +58,7 @@ public class MessagesAdapter extends ArrayAdapter<ChatMessage> {
                 msg.getMessageTime()));
 
         // admins are orange, users are blue
-        if (msg.getMessageUser().contains("admin")) {
+        if (SharedPrefsUtils.getIsAdmin(context)) {
             userTxt.setTextColor(Color.rgb(255, 127, 80));
         } else {
             userTxt.setTextColor(Color.BLUE);
