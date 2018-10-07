@@ -1,0 +1,1 @@
+web: gunicorn --pythonpath flask-server RUInvolvedApp:app
