@@ -1,5 +1,6 @@
 package com.example.shoumyo.ruinvolved.ui.fragments;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -26,6 +27,7 @@ import io.reactivex.schedulers.Schedulers;
 
 public class ClubListFragment extends Fragment {
 
+    private ClubListAdapter adapter;
     private ClubsDataSource dataSource;
 
     public ClubListFragment() { }
@@ -34,37 +36,33 @@ public class ClubListFragment extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         dataSource = new ClubsDataSource(getContext());
-
-
     }
 
 
+    @SuppressLint("CheckResult")
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_club_list, container, false);
 
-        RecyclerView clubsRecycler = view.findViewById(R.id.clubs_recycler);
-        clubsRecycler.setLayoutManager(new LinearLayoutManager(getContext()));
-
         Set<String> favoritedClubs = SharedPrefsUtils.getFavoritedClubs(getContext());
-
         List<Integer> ids = favoritedClubs.stream()
                 .map(Integer::valueOf)
                 .collect(Collectors.toList());
 
+        RecyclerView clubsRecycler = view.findViewById(R.id.clubs_recycler);
+        clubsRecycler.setLayoutManager(new LinearLayoutManager(getContext()));
+        adapter = new ClubListAdapter(null);
+        clubsRecycler.setAdapter(adapter);
 
         dataSource.getClubWithIds(ids)
                 .subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(clubs -> {
-
-                    ClubListAdapter adapter = new ClubListAdapter(clubs);
-                    clubsRecycler.setAdapter(adapter);
-
+                    adapter.setDataSource(clubs);
+                    adapter.notifyDataSetChanged();
                 }, error -> error.printStackTrace());
 
-
-        return null;
+        return view;
     }
 }

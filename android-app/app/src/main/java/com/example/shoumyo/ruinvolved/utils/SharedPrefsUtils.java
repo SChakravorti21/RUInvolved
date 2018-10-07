@@ -10,33 +10,14 @@ public class SharedPrefsUtils {
 
     private static final String AUTH_FILE = "auth_file";
     private static final String PREFS_FILE = "prefs_file";
-    private static final String AUTH_TOKEN_KEY = "auth_token";
     private static final String USERNAME_KEY = "user_name";
     private static final String IS_ADMIN_KEY = "is_admin";
     private static final String FAVORITED_CLUBS = "favorited_clubs";
 
-    public static void setAuthToken(Context context, String authToken) {
-        SharedPreferences sharedPrefs =
-                context.getSharedPreferences(AUTH_FILE, Context.MODE_PRIVATE);
-
-        sharedPrefs.edit()
-                .putString(AUTH_TOKEN_KEY, authToken)
-                .apply();
-    }
-
-    public static String getAuthToken(Context context) {
-        SharedPreferences sharedPrefs =
-                context.getSharedPreferences(AUTH_FILE, Context.MODE_PRIVATE);
-
-        return sharedPrefs.getString(AUTH_TOKEN_KEY, null);
-    }
-
     public static String getUsername(Context context) {
-
         SharedPreferences sharedPrefs = context.getSharedPreferences(AUTH_FILE, Context.MODE_PRIVATE);
         return sharedPrefs.getString(USERNAME_KEY, null);
     }
-
 
     public static void setUsername(Context context, String username) {
         SharedPreferences sharedPrefs =
@@ -50,6 +31,10 @@ public class SharedPrefsUtils {
         sharedPrefs.edit().putBoolean(IS_ADMIN_KEY, isAdmin).apply();
     }
 
+    public static boolean getIsAdmin(Context context) {
+        return context.getSharedPreferences(AUTH_FILE, Context.MODE_PRIVATE)
+                .getBoolean(IS_ADMIN_KEY, false);
+    }
 
     public static Set<String> getFavoritedClubs(Context context) {
 

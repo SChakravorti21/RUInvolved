@@ -108,6 +108,10 @@ public class ClubDetailsActivity extends AppCompatActivity implements OnMapReady
 
         favorited = SharedPrefsUtils.isFavorited(this, club.id);
         updateFavoriteStar();
+
+        if(!SharedPrefsUtils.getIsAdmin(this)) {
+            findViewById(R.id.map_update_fab).setVisibility(View.GONE);
+        }
     }
 
     private void setHtmlText(int viewId, String htmlText) {
