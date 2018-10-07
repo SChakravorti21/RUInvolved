@@ -2,6 +2,7 @@ package com.example.shoumyo.ruinvolved.data_sources.services;
 
 import com.example.shoumyo.ruinvolved.models.Category;
 import com.example.shoumyo.ruinvolved.models.Club;
+import com.example.shoumyo.ruinvolved.models.Geolocation;
 
 import java.util.List;
 
@@ -22,5 +23,8 @@ public interface ClubService {
 
     @GET("/clubs")
     Single<List<Club>> getClubsForIds(@Query("favorite_clubs") String queryString);
+
+    @GET("/club/get-location")
+    Single<Geolocation> getClubLocation(@Query("id") int id);
 
 }

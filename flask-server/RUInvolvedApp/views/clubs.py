@@ -42,3 +42,10 @@ def get_clubs_for_categories(categories):
 def get_all_categories():
     categories = dbclient.categories.find({}, { '_id': 0 })
     return json.dumps([category for category in categories])
+
+
+@mod.route('/club/get-location', methods=['GET'])
+def get_location():
+    location = dbclient.clubs.find_one({'Id':request.args.get('id')})["location"]
+
+    return json.dumps(location)

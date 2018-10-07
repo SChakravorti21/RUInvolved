@@ -6,6 +6,7 @@ import com.example.shoumyo.ruinvolved.data_sources.services.AdminService;
 import com.example.shoumyo.ruinvolved.models.Geolocation;
 
 import io.reactivex.Observable;
+import io.reactivex.Single;
 
 public class AdminApi {
 
@@ -18,4 +19,5 @@ public class AdminApi {
     public Observable<Geolocation> updatedClubLocation(Geolocation location) {
         return service.updateClubLocation(location);
     }
+
 }

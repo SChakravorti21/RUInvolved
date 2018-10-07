@@ -1,5 +1,6 @@
 package com.example.shoumyo.ruinvolved;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -15,6 +16,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.shoumyo.ruinvolved.data_sources.ClubsDataSource;
 import com.example.shoumyo.ruinvolved.models.Club;
 import com.example.shoumyo.ruinvolved.utils.SharedPrefsUtils;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -33,6 +35,9 @@ import java.net.URL;
 import java.util.List;
 import java.util.Map;
 
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
+
 public class ClubDetailsActivity extends AppCompatActivity implements OnMapReadyCallback {
 
     public static final String CLUB_DETAILS_TAG = "club_details";
@@ -41,12 +46,19 @@ public class ClubDetailsActivity extends AppCompatActivity implements OnMapReady
     private boolean favorited;
     ImageButton favoriteButton;
     FloatingActionButton chatFAB;
+    private ClubsDataSource dataSource;
+    private GoogleMap map;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_club_details);
         this.club = (Club) getIntent().getSerializableExtra(CLUB_DETAILS_TAG);
+
+        // iniit data source
+        dataSource = new ClubsDataSource(this);
+
 
         SupportMapFragment mapFragment =
                 (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.club_map);
@@ -90,6 +102,25 @@ public class ClubDetailsActivity extends AppCompatActivity implements OnMapReady
         });
 
         initializeClubDetails();
+    }
+
+
+    @SuppressLint("CheckResult")
+    @Override
+    protected void onResume() {
+
+        int x = 2;
+
+        dataSource.getClubLocation(club.id)
+                .subscribeOn(Schedulers.newThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(loc -> {
+                        club.location = loc;
+                        map.clear();
+                        updateMap();
+                }, err -> err.printStackTrace());
+
+        super.onResume();
     }
 
     private void updateFavoriteStar() {
@@ -141,12 +172,22 @@ public class ClubDetailsActivity extends AppCompatActivity implements OnMapReady
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
+
+        this.map = googleMap;
+
+        updateMap();
+    }
+
+
+    private void updateMap() {
+
         LatLng clublocation = new LatLng(club.location.latitude, club.location.longitude);
         MarkerOptions marker = new MarkerOptions()
                 .position(clublocation)
                 .title(club.name);
-        googleMap.addMarker(marker);
-        googleMap.moveCamera(CameraUpdateFactory.newLatLng(clublocation));
-        googleMap.moveCamera(CameraUpdateFactory.zoomTo(17.0f));
+        map.addMarker(marker);
+        map.moveCamera(CameraUpdateFactory.newLatLng(clublocation));
+        map.moveCamera(CameraUpdateFactory.zoomTo(17.0f));
     }
+
 }

@@ -6,6 +6,7 @@ import com.example.shoumyo.ruinvolved.data_sources.services.ClubService;
 import com.example.shoumyo.ruinvolved.data_sources.services.StudentService;
 import com.example.shoumyo.ruinvolved.models.Category;
 import com.example.shoumyo.ruinvolved.models.Club;
+import com.example.shoumyo.ruinvolved.models.Geolocation;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -63,6 +64,12 @@ public class ClubsDataSource {
         String idsQueryString = sb.toString();
         return service.getClubsForIds(idsQueryString);
     }
+
+
+    public Single<Geolocation> getClubLocation(int id) {
+        return service.getClubLocation(id);
+    }
+
 
 
 }
