@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ListView;
 
 import com.example.shoumyo.ruinvolved.utils.MessagesAdapter;
@@ -52,7 +53,7 @@ public class ChatroomActivity extends AppCompatActivity {
         // store a ref to the database
         reference = FirebaseDatabase.getInstance().getReference();
 
-        Button sendBtn = findViewById(R.id.sendbtn);
+        ImageButton sendBtn = findViewById(R.id.sendbtn);
         sendBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

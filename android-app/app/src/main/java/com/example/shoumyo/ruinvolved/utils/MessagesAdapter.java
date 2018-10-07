@@ -1,8 +1,8 @@
 package com.example.shoumyo.ruinvolved.utils;
 
 import android.content.Context;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
+import android.graphics.Color;
+import android.text.format.DateFormat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,13 +16,12 @@ import java.util.ArrayList;
 
 public class MessagesAdapter extends ArrayAdapter<ChatMessage> {
 
-
     private ArrayList<ChatMessage> msgs;
     Context context;
 
     public MessagesAdapter(ArrayList<ChatMessage> data, Context context) {
 
-        super(context, R.layout.message, data);
+        super(context, R.layout.user_message, data);
         this.msgs = data;
         this.context = context;
     }
@@ -30,12 +29,22 @@ public class MessagesAdapter extends ArrayAdapter<ChatMessage> {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
 
+        ChatMessage msg = msgs.get(position);
+
         View v = convertView;
-        if(v == null) {
-            v = LayoutInflater.from(context).inflate(R.layout.message, null);
+        if (v == null) {
+
+            String username = SharedPrefsUtils.getUsername(context);
+            String messageUser = msg.getMessageUser();
+            if(messageUser.equals(username)) {
+                v = LayoutInflater.from(context).inflate(R.layout.user_message, null);
+            }
+            else {
+                v = LayoutInflater.from(context).inflate(R.layout.other_message, null);
+            }
         }
 
-        ChatMessage msg = msgs.get(position);
+
 
         TextView msgTxt = v.findViewById(R.id.message_text);
         msgTxt.setText(msg.getMessageText());
@@ -44,7 +53,15 @@ public class MessagesAdapter extends ArrayAdapter<ChatMessage> {
         userTxt.setText(msg.getMessageUser());
 
         TextView timeTxt = v.findViewById(R.id.message_time);
-        timeTxt.setText(msg.getMessageTime() + "");
+        timeTxt.setText(DateFormat.format("dd-MM-yyyy (HH:mm:ss)",
+                msg.getMessageTime()));
+
+        // admins are orange, users are blue
+        if (msg.getMessageUser().contains("admin")) {
+            userTxt.setTextColor(Color.rgb(255, 127, 80));
+        } else {
+            userTxt.setTextColor(Color.BLUE);
+        }
 
         return v;
     }
