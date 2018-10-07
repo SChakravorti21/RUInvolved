@@ -71,6 +71,9 @@ public class ChatroomActivity extends AppCompatActivity {
 
                 String msg = input.getText().toString();
 
+                if(msg.equals(""))
+                    return;
+
                 reference.child(Integer.toString(clubId)).push()
                         .setValue(new ChatMessage(msg, username, clubId));
 
