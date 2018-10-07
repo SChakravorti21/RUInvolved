@@ -53,7 +53,6 @@ six==1.11.0
 systemd-python==234
 tabview==1.4.3
 Twisted==17.9.0
-ufw==0.35
 urllib3==1.23
 virtualenv==16.0.0
 virtualenv-clone==0.3.0
