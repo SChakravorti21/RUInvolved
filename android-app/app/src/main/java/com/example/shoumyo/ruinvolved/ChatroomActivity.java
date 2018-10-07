@@ -26,6 +26,8 @@ public class ChatroomActivity extends AppCompatActivity {
 
     public static final String CLUB_ID_TAG = "club_id_tag";
     public static final String USERNAME_TAG = "username_tag";
+    public static final String CLUB_NAME_TAG = "club_name_tag";
+
 
     private MessagesAdapter messagesAdapter;
     private DatabaseReference reference;
@@ -39,7 +41,9 @@ public class ChatroomActivity extends AppCompatActivity {
         Intent intent = getIntent();
         String username = intent.getStringExtra(USERNAME_TAG);
         int clubId = intent.getIntExtra(CLUB_ID_TAG, -1);
+        String clubName = intent.getStringExtra(CLUB_NAME_TAG);
 
+        getSupportActionBar().setTitle(clubName);
 
 
         // initialize the firebase app
