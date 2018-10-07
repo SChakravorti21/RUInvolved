@@ -17,6 +17,7 @@ import com.example.shoumyo.ruinvolved.data_sources.ClubsDataSource;
 import com.example.shoumyo.ruinvolved.ui.MultiSelectionSpinner;
 import com.example.shoumyo.ruinvolved.ui.fragments.ClubListFragment;
 import com.example.shoumyo.ruinvolved.ui.fragments.ClubSearchFragment;
+import com.example.shoumyo.ruinvolved.ui.fragments.ClubsMapFragment;
 
 import java.util.HashMap;
 import java.util.List;
@@ -43,7 +44,8 @@ public class StudentActivity extends AppCompatActivity {
                             setFragment(new ClubListFragment());
                             return true;
                         case R.id.navigation_map:
-                            return false;
+                            setFragment(new ClubsMapFragment());
+                            return true;
                     }
 
                     return false;
