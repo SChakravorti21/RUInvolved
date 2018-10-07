@@ -35,10 +35,10 @@ public class ClubsDataSource {
     public Single<List<Club>> getClubsForCategories(List<String> categories) {
         StringBuilder sb = new StringBuilder("[");
         String lastCategory = categories.get(categories.size() - 1);
-        for(String category : categories) {
+        for (String category : categories) {
             sb.append(category);
 
-            if(!category.equals(lastCategory))
+            if (!category.equals(lastCategory))
                 sb.append(",");
         }
 
@@ -48,22 +48,20 @@ public class ClubsDataSource {
     }
 
 
-    public Single<List<Club>> getClubWithIds(List<String> ids) {
+    public Single<List<Club>> getClubWithIds(List<Integer> ids) {
 
         StringBuilder sb = new StringBuilder("[");
-        for(int i = 0; i < ids.size(); i++) {
+        for (int id : ids) {
+            sb.append(id);
 
-            sb.append(ids.get(i));
-
-            if(i < ids.size() - 1) {
+            if (id != ids.get(ids.size() - 1)) {
                 sb.append(",");
             }
         }
         sb.append("]");
 
         String idsQueryString = sb.toString();
-        return null;
-
+        return service.getClubsForIds(idsQueryString);
     }
 
 

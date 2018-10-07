@@ -43,7 +43,7 @@ public class StudentActivity extends AppCompatActivity {
                             setFragment(new ClubListFragment());
                             return true;
                         case R.id.navigation_map:
-                            return true;
+                            return false;
                     }
 
                     return false;

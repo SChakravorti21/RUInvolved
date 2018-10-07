@@ -20,4 +20,7 @@ public interface ClubService {
     @GET("/clubs/categories")
     Single<List<Category>> getAllCategories();
 
+    @GET("/clubs")
+    Single<List<Club>> getClubsForIds(@Query("favorite_clubs") String queryString);
+
 }
