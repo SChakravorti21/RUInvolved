@@ -64,28 +64,28 @@ public class ChatroomActivity extends AppCompatActivity {
         reference = FirebaseDatabase.getInstance().getReference();
 
         ImageButton sendBtn = findViewById(R.id.sendbtn);
-        sendBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        sendBtn.setOnClickListener( v -> {
+
                 EditText input = findViewById(R.id.input);
 
                 String msg = input.getText().toString();
 
+                // cannot send message if did not type anything
                 if(msg.equals(""))
                     return;
 
+                // add message as a node under the clubID
                 reference.child(Integer.toString(clubId)).push()
                         .setValue(new ChatMessage(msg, username, clubId));
 
                 input.setText("");
 
                 displayChatMessages(clubId);
-            }
-        });
+            });
 
 
-        // #logical
-        reference.child(clubId + "").addChildEventListener(new ChildEventListener() {
+        // listen for new messages under the given club
+        reference.child(Integer.toString(clubId)).addChildEventListener(new ChildEventListener() {
 
             @Override
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
@@ -116,8 +116,6 @@ public class ChatroomActivity extends AppCompatActivity {
      */
     private void displayChatMessages(int clubId) {
 
-
-
         final ArrayList<ChatMessage> messages = new ArrayList<>();
 
         // go to the child node with the name of club ID
@@ -141,12 +139,9 @@ public class ChatroomActivity extends AppCompatActivity {
                 messagesAdapter.notifyDataSetChanged();
 
                 // scroll to bottom
-                listView.post(new Runnable() {
-                    @Override
-                    public void run() {
+                listView.post(() -> {
                         // Select the last row so it will scroll into view...
                         listView.setSelection(messagesAdapter.getCount() - 1);
-                    }
                 });
             }
 
