@@ -31,6 +31,13 @@ public class SharedPrefsUtils {
         return sharedPrefs.getString(AUTH_TOKEN_KEY, null);
     }
 
+    public static String getUsername(Context context) {
+
+        SharedPreferences sharedPrefs = context.getSharedPreferences(AUTH_FILE, Context.MODE_PRIVATE);
+        return sharedPrefs.getString(USERNAME_KEY, null);
+    }
+
+
     public static void setUsername(Context context, String username) {
         SharedPreferences sharedPrefs =
                 context.getSharedPreferences(AUTH_FILE, Context.MODE_PRIVATE);

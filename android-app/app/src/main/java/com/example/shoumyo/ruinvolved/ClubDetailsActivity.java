@@ -1,12 +1,15 @@
 package com.example.shoumyo.ruinvolved;
 
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.media.Image;
 import android.os.AsyncTask;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Html;
+import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -35,6 +38,7 @@ public class ClubDetailsActivity extends AppCompatActivity implements OnMapReady
     private Club club;
     private boolean favorited;
     ImageButton favoriteButton;
+    FloatingActionButton chatFAB;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,6 +60,25 @@ public class ClubDetailsActivity extends AppCompatActivity implements OnMapReady
             else
                 SharedPrefsUtils.removeFavoriteClub(this, club.id);
         });
+
+
+        // starts the chat room activity
+        chatFAB = findViewById(R.id.chat_fab);
+        chatFAB.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent intent = new Intent(ClubDetailsActivity.this, ChatroomActivity.class);
+                intent.putExtra(ChatroomActivity.CLUB_ID_TAG, club.id);
+
+                String currentUser = SharedPrefsUtils.getUsername(ClubDetailsActivity.this);
+                intent.putExtra(ChatroomActivity.USERNAME_TAG, currentUser);
+
+                startActivity(intent);
+
+            }
+        });
+
 
         initializeClubDetails();
     }
