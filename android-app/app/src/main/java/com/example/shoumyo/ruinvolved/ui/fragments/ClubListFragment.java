@@ -46,9 +46,11 @@ public class ClubListFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_club_list, container, false);
 
         Set<String> favoritedClubs = SharedPrefsUtils.getFavoritedClubs(getContext());
-        List<Integer> ids = favoritedClubs.stream()
+        List<Integer> ids = favoritedClubs != null
+            ? favoritedClubs.stream()
                 .map(Integer::valueOf)
-                .collect(Collectors.toList());
+                .collect(Collectors.toList())
+            : new ArrayList<>();
 
         RecyclerView clubsRecycler = view.findViewById(R.id.clubs_recycler);
         clubsRecycler.setLayoutManager(new LinearLayoutManager(getContext()));
