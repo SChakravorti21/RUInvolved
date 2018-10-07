@@ -30,6 +30,7 @@ import java.io.InputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.List;
+import java.util.Map;
 
 public class ClubDetailsActivity extends AppCompatActivity implements OnMapReadyCallback {
 
@@ -79,6 +80,11 @@ public class ClubDetailsActivity extends AppCompatActivity implements OnMapReady
             }
         });
 
+        findViewById(R.id.map_update_fab).setOnClickListener(button -> {
+            Intent intent = new Intent(this, MapsActivity.class);
+            intent.putExtra(MapsActivity.CLUB_EXTRA_TAG, this.club);
+            startActivity(intent);
+        });
 
         initializeClubDetails();
     }
@@ -126,16 +132,13 @@ public class ClubDetailsActivity extends AppCompatActivity implements OnMapReady
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
-        LatLng markerPosition = new LatLng(club.location.latitude, club.location.longitude);
+        LatLng clublocation = new LatLng(club.location.latitude, club.location.longitude);
         MarkerOptions marker = new MarkerOptions()
-                .position(markerPosition)
-                .title(this.club.name);
+                .position(clublocation)
+                .title(club.name);
         googleMap.addMarker(marker);
-
-        LatLngBounds bounds = new LatLngBounds.Builder()
-                .include(markerPosition)
-                .build();
-        googleMap.animateCamera(CameraUpdateFactory.newLatLngBounds(bounds, 10000, 10000, 10));
+        googleMap.moveCamera(CameraUpdateFactory.newLatLng(clublocation));
+        googleMap.moveCamera(CameraUpdateFactory.zoomTo(17.0f));
     }
 
     private class LoadClubLogoTask extends AsyncTask<String, Void, Bitmap> {

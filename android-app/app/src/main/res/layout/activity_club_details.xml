@@ -119,6 +119,17 @@
     </ScrollView>
 
     <android.support.design.widget.FloatingActionButton
+        android:id="@+id/map_update_fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:fabSize="mini"
+        android:src="@drawable/ic_edit_location_18dp"
+        android:layout_below="@id/club_map"
+        android:layout_marginTop="-18dp"
+        android:layout_marginEnd="@dimen/large_margin"
+        android:layout_alignParentEnd="true" />
+
+    <android.support.design.widget.FloatingActionButton
         android:id="@+id/chat_fab"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
