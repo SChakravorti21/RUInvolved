@@ -2,12 +2,14 @@ package com.example.shoumyo.ruinvolved.ui.fragments;
 
 
 import android.annotation.SuppressLint;
+import android.location.Location;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,6 +19,7 @@ import com.example.shoumyo.ruinvolved.data_sources.ClubsDataSource;
 import com.example.shoumyo.ruinvolved.models.Club;
 import com.example.shoumyo.ruinvolved.ui.adapters.ClubListAdapter;
 import com.example.shoumyo.ruinvolved.utils.SharedPrefsUtils;
+import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -36,6 +39,9 @@ import io.reactivex.schedulers.Schedulers;
  * A simple {@link Fragment} subclass.
  */
 public class ClubsMapFragment extends Fragment implements OnMapReadyCallback {
+
+    private final double EQUATOR_LENGTH = 40075000;
+
 
     private ClubsDataSource dataSource;
 
@@ -90,6 +96,15 @@ public class ClubsMapFragment extends Fragment implements OnMapReadyCallback {
             boundsBuilder.include(clublocation);
         }
 
-        map.moveCamera(CameraUpdateFactory.newLatLngBounds(boundsBuilder.build(), 0));
+        LatLngBounds bounds = boundsBuilder.build();
+
+        CameraUpdate cu = CameraUpdateFactory.newLatLngBounds(bounds, 200);
+
+        map.moveCamera(CameraUpdateFactory.zoomTo(2f));
+        map.animateCamera(cu);
+
+//        map.animateCamera(CameraUpdateFactory.zoomTo(17f));
     }
+
+
 }

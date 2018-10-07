@@ -63,10 +63,10 @@ public class MultiSelectionSpinner extends android.support.v7.widget.AppCompatSp
     @Override
     public boolean performClick() {
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-        builder.setTitle("Please select!!!");
+        builder.setTitle("Select categories to search in");
         builder.setMultiChoiceItems(_items, mSelection, this);
         _itemsAtStart = getSelectedItemsAsString();
-        builder.setPositiveButton("Submit", new DialogInterface.OnClickListener() {
+        builder.setPositiveButton("Search", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 System.arraycopy(mSelection, 0, mSelectionAtStart, 0, mSelection.length);
