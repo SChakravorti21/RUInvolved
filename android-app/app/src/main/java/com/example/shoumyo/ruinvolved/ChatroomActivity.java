@@ -3,6 +3,7 @@ package com.example.shoumyo.ruinvolved;
 import com.example.shoumyo.ruinvolved.models.ChatMessage;
 import com.google.firebase.FirebaseApp;
 
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -34,10 +35,11 @@ public class ChatroomActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chatroom);
 
+        // get username and club from intent
+        Intent intent = getIntent();
+        String username = intent.getStringExtra(USERNAME_TAG);
+        int clubId = intent.getIntExtra(CLUB_ID_TAG, -1);
 
-        // temp
-        int clubId = 1;
-        String userName = "john";
 
 
         // initialize the firebase app
@@ -55,9 +57,11 @@ public class ChatroomActivity extends AppCompatActivity {
                 String msg = input.getText().toString();
 
                 reference.child(Integer.toString(clubId)).push()
-                        .setValue(new ChatMessage(msg, userName, clubId));
+                        .setValue(new ChatMessage(msg, username, clubId));
 
                 input.setText("");
+
+                displayChatMessages(clubId);
             }
         });
 
