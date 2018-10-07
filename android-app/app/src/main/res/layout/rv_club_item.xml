@@ -10,7 +10,7 @@
         android:layout_height="@dimen/club_card_height"
         android:maxHeight="@dimen/club_card_height"
         android:layout_margin="@dimen/small_margin"
-        app:cardElevation="8dp"
+        app:cardElevation="4dp"
         app:cardCornerRadius="4dp" >
 
         <LinearLayout

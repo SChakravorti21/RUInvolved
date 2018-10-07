@@ -54,7 +54,7 @@ public class ClubListFragment extends Fragment {
             : new ArrayList<>();
 
 
-        if(favoritedClubs.size() == 0) {
+        if(ids.size() == 0) {
             Toast.makeText(getContext(), "You don't have any clubs saved.", Toast.LENGTH_LONG).show();
             return view;
         }

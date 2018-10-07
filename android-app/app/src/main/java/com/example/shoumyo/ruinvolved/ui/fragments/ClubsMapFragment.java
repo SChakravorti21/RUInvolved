@@ -13,6 +13,7 @@ import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.example.shoumyo.ruinvolved.R;
 import com.example.shoumyo.ruinvolved.data_sources.ClubsDataSource;
@@ -28,6 +29,7 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -72,9 +74,16 @@ public class ClubsMapFragment extends Fragment implements OnMapReadyCallback {
     @Override
     public void onMapReady(GoogleMap googleMap) {
         Set<String> favoritedClubs = SharedPrefsUtils.getFavoritedClubs(getContext());
-        List<Integer> ids = favoritedClubs.stream()
-                .map(Integer::valueOf)
-                .collect(Collectors.toList());
+        List<Integer> ids = favoritedClubs != null
+                ? favoritedClubs.stream()
+                    .map(Integer::valueOf)
+                    .collect(Collectors.toList())
+                : new ArrayList<>();
+
+        if(ids.size() == 0) {
+            Toast.makeText(getContext(), "You don't have any clubs saved.", Toast.LENGTH_LONG).show();
+            return;
+        }
 
         dataSource.getClubWithIds(ids)
                 .subscribeOn(Schedulers.newThread())
