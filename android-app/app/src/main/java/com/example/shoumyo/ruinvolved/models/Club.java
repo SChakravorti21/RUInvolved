@@ -34,6 +34,9 @@ public class Club implements Serializable {
     @SerializedName("CategoryNames")
     public List<String> categoryNames;
 
+    @SerializedName("geolocation")
+    public Geolocation location;
+
     public String getProfilePicture() {
         return "https://se-infra-imageserver2.azureedge.net/clink/images/" + profilePicture;
     }

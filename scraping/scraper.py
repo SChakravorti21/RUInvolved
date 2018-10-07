@@ -15,6 +15,10 @@ class Scraper():
             club.pop("@search.score", None)
             club["Id"] = int(club["Id"])
             club["generated_id"] = uuid.uuid4().hex[:6]
+            club["geolocation"] = {
+                'lat': 40.502573,
+                'lng': -74.452631
+            }
 
         return clubs
 
