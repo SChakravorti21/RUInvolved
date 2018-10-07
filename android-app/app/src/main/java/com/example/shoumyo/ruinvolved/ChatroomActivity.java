@@ -23,6 +23,9 @@ import java.util.Iterator;
 
 public class ChatroomActivity extends AppCompatActivity {
 
+    public static final String CLUB_ID_TAG = "club_id_tag";
+    public static final String USERNAME_TAG = "username_tag";
+
     private MessagesAdapter messagesAdapter;
     private DatabaseReference reference;
 
@@ -33,7 +36,7 @@ public class ChatroomActivity extends AppCompatActivity {
 
 
         // temp
-        long clubId = 1;
+        int clubId = 1;
         String userName = "john";
 
 
@@ -51,7 +54,7 @@ public class ChatroomActivity extends AppCompatActivity {
 
                 String msg = input.getText().toString();
 
-                reference.child(Long.toString(clubId)).push()
+                reference.child(Integer.toString(clubId)).push()
                         .setValue(new ChatMessage(msg, userName, clubId));
 
                 input.setText("");
@@ -67,7 +70,7 @@ public class ChatroomActivity extends AppCompatActivity {
      * Displays all chat messages in list view, for a given clubID
      * @param clubId
      */
-    private void displayChatMessages(long clubId) {
+    private void displayChatMessages(int clubId) {
 
         final ListView listView = findViewById(R.id.list_of_messages);
 
@@ -75,7 +78,7 @@ public class ChatroomActivity extends AppCompatActivity {
 
         // go to the child node with the name of club ID
         // who's children are all the messages
-        reference.child(Long.toString(clubId)).addListenerForSingleValueEvent(new ValueEventListener() {
+        reference.child(Integer.toString(clubId)).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
