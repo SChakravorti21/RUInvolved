@@ -68,7 +68,7 @@ public class MessagesAdapter extends ArrayAdapter<ChatMessage> {
         userTxt.setText(msg.getMessageUser());
 
         TextView timeTxt = v.findViewById(R.id.message_time);
-        timeTxt.setText(DateFormat.format("dd-MM-yyyy (HH:mm:ss)",
+        timeTxt.setText(DateFormat.format("MMM d (h:mm a)",
                 msg.getMessageTime()));
 
         // admins are orange, users are blue
