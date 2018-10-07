@@ -47,4 +47,24 @@ public class ClubsDataSource {
         return service.getClubsForCategories(categoriesQueryString);
     }
 
+
+    public Single<List<Club>> getClubWithIds(List<String> ids) {
+
+        StringBuilder sb = new StringBuilder("[");
+        for(int i = 0; i < ids.size(); i++) {
+
+            sb.append(ids.get(i));
+
+            if(i < ids.size() - 1) {
+                sb.append(",");
+            }
+        }
+        sb.append("]");
+
+        String idsQueryString = sb.toString();
+        return null;
+
+    }
+
+
 }
