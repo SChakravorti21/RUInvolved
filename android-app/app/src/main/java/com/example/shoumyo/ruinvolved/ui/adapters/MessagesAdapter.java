@@ -45,24 +45,20 @@ public class MessagesAdapter extends ArrayAdapter<ChatMessage> {
 
         ChatMessage msg = msgs.get(position);
 
-        View v = convertView;
-        if (v == null) {
+        View v;
+        String username = SharedPrefsUtils.getUsername(context);
+        String messageUser = msg.getMessageUser();
+        if(messageUser.equals(username)) {
+            v = LayoutInflater.from(context).inflate(R.layout.user_message, null);
+        }
+        else {
+            v = LayoutInflater.from(context).inflate(R.layout.other_message, null);
+        }
 
-            String username = SharedPrefsUtils.getUsername(context);
-            String messageUser = msg.getMessageUser();
-            if(messageUser.equals(username)) {
-                v = LayoutInflater.from(context).inflate(R.layout.user_message, parent);
-            }
-            else {
-                v = LayoutInflater.from(context).inflate(R.layout.other_message, parent);
-            }
-
-            if(position % 2 == 0) {
-                v.setBackgroundColor(Color.rgb(215, 219, 226));
-            } else {
-                v.setBackgroundColor(Color.WHITE);
-            }
-
+        if(position % 2 == 0) {
+            v.setBackgroundColor(Color.rgb(215, 219, 226));
+        } else {
+            v.setBackgroundColor(Color.WHITE);
         }
 
         TextView msgTxt = v.findViewById(R.id.message_text);
