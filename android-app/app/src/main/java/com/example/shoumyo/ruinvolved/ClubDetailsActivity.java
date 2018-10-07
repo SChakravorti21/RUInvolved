@@ -103,7 +103,7 @@ public class ClubDetailsActivity extends AppCompatActivity implements OnMapReady
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
-        LatLng markerPosition = new LatLng(40.502573, -74.452631);
+        LatLng markerPosition = new LatLng(club.location.latitude, club.location.longitude);
         MarkerOptions marker = new MarkerOptions()
                 .position(markerPosition)
                 .title(this.club.name);
