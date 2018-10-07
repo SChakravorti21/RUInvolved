@@ -31,6 +31,7 @@ import io.reactivex.schedulers.Schedulers;
 public class ClubSearchFragment extends Fragment implements MultiSelectionSpinner.OnMultipleItemsSelectedListener {
 
     private List<Club> allClubs;
+    private EditText clubSearch;
     private ClubsDataSource clubDataSource;
     private ClubListAdapter clubListAdapter;
     private MultiSelectionSpinner selectionSpinner;
@@ -53,7 +54,7 @@ public class ClubSearchFragment extends Fragment implements MultiSelectionSpinne
         clubListRecyclerView.setAdapter(clubListAdapter);
         this.initializeMultiSelect(root);
 
-        EditText clubSearch = root.findViewById(R.id.clubSearchQuery);
+        clubSearch = root.findViewById(R.id.clubSearchQuery);
         clubSearch.addTextChangedListener(new TextWatcher() {
             final android.os.Handler handler = new android.os.Handler();
             Runnable runnable;
@@ -65,14 +66,8 @@ public class ClubSearchFragment extends Fragment implements MultiSelectionSpinne
             @Override
             public void afterTextChanged(final Editable s) {
                 String query = clubSearch.getText().toString();
-                //do some work with s.toString()
-                List<Club> filteredClubs = allClubs
-                        .stream()
-                        .filter(club -> club.name != null && club.name.contains(query))
-                        .collect(Collectors.toList());
-
                 //show some progress, because you can access UI here
-                runnable = () -> setClubsFromDataSource(filteredClubs);
+                runnable = () -> setClubsFromDataSource(query);
                 handler.postDelayed(runnable, 500);
             }
 
@@ -108,14 +103,23 @@ public class ClubSearchFragment extends Fragment implements MultiSelectionSpinne
                 .subscribe(
                         clubs -> {
                             this.allClubs = clubs;
-                            setClubsFromDataSource(clubs);
+                            setClubsFromDataSource(clubSearch.getText().toString());
                         },
                         error -> error.printStackTrace()
                 );
     }
 
-    public void setClubsFromDataSource(List<Club> clubs) {
-        clubListAdapter.setDataSource(clubs);
+    private List<Club> filterClubsByQuery(String query) {
+        return allClubs.stream()
+                .filter(club -> club.name != null && club.name.contains(query))
+                .collect(Collectors.toList());
+    }
+
+    public void setClubsFromDataSource(String query) {
+        if(allClubs == null)
+            return;
+
+        clubListAdapter.setDataSource(filterClubsByQuery(query));
         clubListAdapter.notifyDataSetChanged();
     }
 

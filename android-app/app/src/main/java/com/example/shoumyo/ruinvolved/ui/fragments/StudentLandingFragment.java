@@ -12,11 +12,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.example.shoumyo.ruinvolved.R;
 import com.example.shoumyo.ruinvolved.StudentActivity;
 import com.example.shoumyo.ruinvolved.utils.SharedPrefsUtils;
+import com.squareup.picasso.Picasso;
 
 public class StudentLandingFragment extends Fragment {
 
@@ -39,6 +41,10 @@ public class StudentLandingFragment extends Fragment {
             Intent activityIntent = new Intent(context, StudentActivity.class);
             context.startActivity(activityIntent);
         });
+
+        Picasso.get()
+                .load("https://music.colostate.edu/wp-content/uploads/sites/17/2018/08/09.20.18-University-Symphony-Orchestra.jpg")
+                .into((ImageView) viewRoot.findViewById(R.id.header_image));
 
         return viewRoot;
     }
