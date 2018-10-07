@@ -8,4 +8,20 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="BaseHeader" parent="Theme.AppCompat.Light.DarkActionBar">
+        <item name="android:fontFamily">@font/montserrat</item>
+    </style>
+
+    <style name="LargeHeader" parent="BaseHeader">
+        <item name="android:textSize">32sp</item>
+    </style>
+
+    <style name="MediumHeader" parent="BaseHeader">
+        <item name="android:textSize">18sp</item>
+    </style>
+
+    <style name="SmallHeader" parent="BaseHeader">
+        <item name="android:textSize">12sp</item>
+    </style>
+
 </resources>

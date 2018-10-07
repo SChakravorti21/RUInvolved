@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.example.shoumyo.ruinvolved.ClubDetailsActivity;
@@ -20,6 +21,7 @@ import com.example.shoumyo.ruinvolved.StudentActivity;
 import com.example.shoumyo.ruinvolved.data_sources.ClubsDataSource;
 import com.example.shoumyo.ruinvolved.models.Club;
 import com.example.shoumyo.ruinvolved.utils.SharedPrefsUtils;
+import com.squareup.picasso.Picasso;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
@@ -46,6 +48,10 @@ public class AdminLandingFragment extends Fragment {
 
         Button signInButton = viewRoot.findViewById(R.id.sign_in_button);
         signInButton.setOnClickListener(button -> ensureValidClubId());
+
+        Picasso.get()
+                .load("https://fullcircle.asu.edu/wp-content/uploads/2017/11/FIRST-Robotics-Competition-2017-JH3915w.jpg")
+                .into((ImageView) viewRoot.findViewById(R.id.header_image));
 
         return viewRoot;
     }
