@@ -6,6 +6,9 @@ import java.io.Serializable;
 
 public class Geolocation implements Serializable {
 
+    @SerializedName("club_id")
+    public int clubId;
+
     @SerializedName("lat")
     public double latitude;
 
