@@ -76,7 +76,7 @@ public class MessagesAdapter extends ArrayAdapter<ChatMessage> {
                 msg.getMessageTime()));
 
         // admins are orange, users are blue
-        if (SharedPrefsUtils.getIsAdmin(context)) {
+        if (msg.getMessageUser().contains("Admin")) {
             userTxt.setTextColor(Color.rgb(255, 127, 80));
         } else {
             userTxt.setTextColor(Color.BLUE);
