@@ -24,6 +24,7 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.squareup.picasso.Picasso;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -100,7 +101,9 @@ public class ClubDetailsActivity extends AppCompatActivity implements OnMapReady
     }
 
     private void initializeClubDetails() {
-        new LoadClubLogoTask().execute(club.getProfilePicture());
+        ImageView imageView = findViewById(R.id.club_logo);
+        Picasso.get().load(club.getProfilePicture()).into(imageView);
+
         ((TextView) findViewById(R.id.club_name)).setText(club.name);
         setHtmlText(R.id.club_summary, club.summary);
         setHtmlText(R.id.club_description, club.description);
@@ -145,32 +148,5 @@ public class ClubDetailsActivity extends AppCompatActivity implements OnMapReady
         googleMap.addMarker(marker);
         googleMap.moveCamera(CameraUpdateFactory.newLatLng(clublocation));
         googleMap.moveCamera(CameraUpdateFactory.zoomTo(17.0f));
-    }
-
-    private class LoadClubLogoTask extends AsyncTask<String, Void, Bitmap> {
-
-        @Override
-        protected Bitmap doInBackground(String... strings) {
-            if(strings.length == 0)
-                return null;
-
-            Bitmap bitmap = null;
-            String imageUrl = strings[0];
-            try {
-                bitmap = BitmapFactory.decodeStream((InputStream)new URL(imageUrl).getContent());
-            } catch (MalformedURLException e) {
-                e.printStackTrace();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-
-            return bitmap;
-        }
-
-        @Override
-        protected void onPostExecute(Bitmap bitmap) {
-            super.onPostExecute(bitmap);
-            ((ImageView) findViewById(R.id.club_logo)).setImageBitmap(bitmap);
-        }
     }
 }

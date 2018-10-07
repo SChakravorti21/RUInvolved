@@ -38,7 +38,8 @@ public class Club implements Serializable {
     public Geolocation location;
 
     public String getProfilePicture() {
-        return "https://se-infra-imageserver2.azureedge.net/clink/images/" + profilePicture;
+        return "https://se-infra-imageserver2.azureedge.net/clink/images/"
+                + profilePicture;
     }
 
     public String getShortName() {

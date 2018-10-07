@@ -15,6 +15,7 @@ import android.widget.TextView;
 import com.example.shoumyo.ruinvolved.ClubDetailsActivity;
 import com.example.shoumyo.ruinvolved.R;
 import com.example.shoumyo.ruinvolved.models.Club;
+import com.squareup.picasso.Picasso;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -49,16 +50,16 @@ public class ClubViewHolder extends RecyclerView.ViewHolder {
         this.setProfilePicture(club.getProfilePicture());
     }
 
-    public void setProfilePicture(String imageUrl) {
-        new LoadClubLogoTask().execute(imageUrl);
+    private void setProfilePicture(String imageUrl) {
+        Picasso.get().load(imageUrl).into(profilePicture);
     }
 
-    public void setClubName(String clubName) {
+    private void setClubName(String clubName) {
         clubName = clubName.trim();
         this.clubName.setText(clubName);
     }
 
-    public void setClubDescription(String description) {
+    private void setClubDescription(String description) {
         if(description == null)
             return;
 
