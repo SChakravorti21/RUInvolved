@@ -50,6 +50,16 @@ public class SharedPrefsUtils {
         sharedPrefs.edit().putBoolean(IS_ADMIN_KEY, isAdmin).apply();
     }
 
+
+    public static Set<String> getFavoritedClubs(Context context) {
+
+        SharedPreferences sharedPrefs = context.getSharedPreferences(PREFS_FILE, Context.MODE_PRIVATE);
+
+        return sharedPrefs.getStringSet(FAVORITED_CLUBS, null);
+
+    }
+
+
     public static boolean isFavorited(Context context, int clubId) {
         SharedPreferences sharedPrefs =
                 context.getSharedPreferences(PREFS_FILE, Context.MODE_PRIVATE);
@@ -57,6 +67,7 @@ public class SharedPrefsUtils {
         Set<String> favoritedClubs = sharedPrefs.getStringSet(FAVORITED_CLUBS, null);
         return favoritedClubs != null && favoritedClubs.contains("" + clubId);
     }
+
 
     public static void addFavoriteClub(Context context, int clubId) {
         SharedPreferences sharedPrefs =

@@ -15,6 +15,7 @@ import android.widget.FrameLayout;
 import com.example.shoumyo.ruinvolved.R;
 import com.example.shoumyo.ruinvolved.data_sources.ClubsDataSource;
 import com.example.shoumyo.ruinvolved.ui.MultiSelectionSpinner;
+import com.example.shoumyo.ruinvolved.ui.fragments.ClubListFragment;
 import com.example.shoumyo.ruinvolved.ui.fragments.ClubSearchFragment;
 
 import java.util.HashMap;
@@ -35,12 +36,13 @@ public class StudentActivity extends AppCompatActivity {
         bottomNavigationView.setOnNavigationItemSelectedListener(
                 menuItem -> {
                     switch (menuItem.getItemId()) {
-                        case R.id.navigation_home:
+                        case R.id.navigation_explore:
                             setFragment(new ClubSearchFragment());
                             return true;
-                        case R.id.navigation_dashboard:
+                        case R.id.navigation_favorites:
+                            setFragment(new ClubListFragment());
                             return true;
-                        case R.id.navigation_notifications:
+                        case R.id.navigation_map:
                             return true;
                     }
 
