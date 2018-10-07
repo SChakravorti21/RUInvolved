@@ -27,6 +27,7 @@ public class StudentLandingFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View viewRoot = inflater.inflate(R.layout.fragment_student_landing, container, false);
 
+
         EditText username = viewRoot.findViewById(R.id.display_name);
         Button signInButton = viewRoot.findViewById(R.id.sign_in_button);
         signInButton.setOnClickListener(button -> {
