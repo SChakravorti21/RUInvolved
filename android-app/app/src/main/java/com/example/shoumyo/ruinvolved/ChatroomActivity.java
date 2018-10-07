@@ -9,21 +9,17 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListView;
 
-import com.example.shoumyo.ruinvolved.utils.MessagesAdapter;
+import com.example.shoumyo.ruinvolved.ui.adapters.MessagesAdapter;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.EventListener;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -38,10 +34,19 @@ public class ChatroomActivity extends AppCompatActivity {
     private MessagesAdapter messagesAdapter;
     private DatabaseReference reference;
 
+    private ListView listView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chatroom);
+
+        listView = findViewById(R.id.list_of_messages);
+
+        // create the adapter with messages from this club, then set it to listview
+        messagesAdapter = new MessagesAdapter(null, ChatroomActivity.this);
+        listView.setAdapter(messagesAdapter);
+
 
         // get username and club from intent
         Intent intent = getIntent();
@@ -108,7 +113,7 @@ public class ChatroomActivity extends AppCompatActivity {
      */
     private void displayChatMessages(int clubId) {
 
-        final ListView listView = findViewById(R.id.list_of_messages);
+
 
         final ArrayList<ChatMessage> messages = new ArrayList<>();
 
@@ -129,9 +134,8 @@ public class ChatroomActivity extends AppCompatActivity {
                     messages.add(msg);
                 }
 
-                // create the adapter with messages from this club, then set it to listview
-                messagesAdapter = new MessagesAdapter(messages, ChatroomActivity.this);
-                listView.setAdapter(messagesAdapter);
+                messagesAdapter.setMessages(messages);
+                messagesAdapter.notifyDataSetChanged();
 
                 // scroll to bottom
                 listView.post(new Runnable() {

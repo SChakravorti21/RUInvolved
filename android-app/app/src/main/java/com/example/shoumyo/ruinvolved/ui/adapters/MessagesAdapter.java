@@ -1,4 +1,4 @@
-package com.example.shoumyo.ruinvolved.utils;
+package com.example.shoumyo.ruinvolved.ui.adapters;
 
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import com.example.shoumyo.ruinvolved.R;
 import com.example.shoumyo.ruinvolved.models.ChatMessage;
+import com.example.shoumyo.ruinvolved.utils.SharedPrefsUtils;
 
 import java.util.ArrayList;
 
@@ -19,6 +20,18 @@ public class MessagesAdapter extends ArrayAdapter<ChatMessage> {
 
     private ArrayList<ChatMessage> msgs;
     Context context;
+
+
+    public void setMessages(ArrayList<ChatMessage> data) {
+        msgs = data;
+    }
+
+    @Override
+    public int getCount() {
+        if(msgs == null)
+            return 0;
+        return msgs.size();
+    }
 
     public MessagesAdapter(ArrayList<ChatMessage> data, Context context) {
 
@@ -43,6 +56,12 @@ public class MessagesAdapter extends ArrayAdapter<ChatMessage> {
             else {
                 v = LayoutInflater.from(context).inflate(R.layout.other_message, null);
             }
+
+            if(position % 2 == 0) {
+                v.setBackgroundColor(Color.rgb(215, 219, 226));
+            }
+
+
         }
 
 
