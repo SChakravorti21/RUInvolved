@@ -10,6 +10,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.example.shoumyo.ruinvolved.R;
 import com.example.shoumyo.ruinvolved.data_sources.ClubsDataSource;
@@ -51,6 +52,12 @@ public class ClubListFragment extends Fragment {
                 .map(Integer::valueOf)
                 .collect(Collectors.toList())
             : new ArrayList<>();
+
+
+        if(favoritedClubs.size() == 0) {
+            Toast.makeText(getContext(), "You don't have any clubs saved.", Toast.LENGTH_LONG).show();
+            return view;
+        }
 
         RecyclerView clubsRecycler = view.findViewById(R.id.clubs_recycler);
         clubsRecycler.setLayoutManager(new LinearLayoutManager(getContext()));
